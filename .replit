@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "bash", "web"]
+modules = ["nodejs-20", "nix"]
 run = "npm run dev"
 hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
@@ -65,4 +65,8 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "VITE_WS_URL=ws://0.0.0.0:5000/ws NODE_ENV=development tsx --inspect server/index.ts"
+args = "cd client && npm run dev"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd server && NODE_ENV=development tsx --inspect index.ts"
