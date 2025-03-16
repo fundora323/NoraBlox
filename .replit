@@ -14,7 +14,7 @@ localPort = 5000
 externalPort = 80
 
 [workflows]
-runButton = "Project"
+runButton = "Dev Stack"
 
 [[workflows.workflow]]
 name = "Project"
@@ -39,3 +39,30 @@ task = "packager.installForAll"
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
+
+[[workflows.workflow]]
+name = "Dev Server"
+author = 40564318
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "NODE_ENV=development tsx --inspect server/index.ts"
+
+[[workflows.workflow]]
+name = "Full Stack Dev"
+author = 40564318
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "NODE_ENV=development VITE_WS_URL=ws://0.0.0.0:5000 tsx --inspect server/index.ts"
+
+[[workflows.workflow]]
+name = "Dev Stack"
+author = 40564318
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "VITE_WS_URL=ws://0.0.0.0:5000/ws NODE_ENV=development tsx --inspect server/index.ts"
